@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const morgan = require("morgan");
 const {
   getAllPerson,
   getSinglePerson,
@@ -9,19 +10,17 @@ const {
 const info = require("./controllers/infoController");
 
 // middlware
-app.use(express.json())
+app.use(morgan("tiny"));
+app.use(express.json());
 
 // route ---> http request
 app.get("/api/person", getAllPerson);
-app.post("/api/persons",createPerson);
+app.post("/api/persons", createPerson);
 
 app.get("/api/person/:id", getSinglePerson);
 app.delete("/api/person/:id", deletePerson);
 
 app.get("/info", info);
-
-
-
 
 const port = 3001;
 app.listen(port, () => {
